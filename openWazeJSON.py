@@ -1,34 +1,32 @@
-#Importar la libreria que maneja los JSONs en Python
+''' 
+This code will open a json file obtained from waze, with the location and speed data of the users.
+Orestes Manzanilla
+24-01-2018 
+'''
+# One easy (though impractical) way to obtain the JSON files is the following:
+# 
+# 1) Open the "live map" in Google Chrome browser.
+# 2) Adjust the zoom to the area of interest.
+# 3) Press F12 to see information about the webpage.
+# 4) Go to the tab "Network", and wait for the TGeoRSS* files to be loaded. Each few seconds arrives a new one. These have JSON format and a complex structure (not a table).
+# 5) Right clic on one of the files and open in new tab.
+# 6) Copy the contents of the JSON variable and paste it into a JSON viewer (I used http://jsonviewer.stack.hu/)
+# 7) Go to the tab "Viewer" after pasting the variable.
+
+
 import json
 
-#Abrir el archivo y guardarlo en una variable como un diccionario
+#Open the json file and save it as a python dictionary
 with open('TGeoRSS.json','r') as f:
 	tGeoRSS_dict = json.load(f)
 
-#Defino en la variable User el usuario al que voy a extraerle la data
+#Specify the user for which the data will be read
 User = 0
 
 #Puedo guardar en variables la data
 startTime = tGeoRSS_dict['startTime'] #String
 endTime = tGeoRSS_dict['endTime'] #String
-userID = tGeoRSS_dict['users'][0]['id'] #String 
-speed = tGeoRSS_dict['users'][0]['speed'] #Float
-x = tGeoRSS_dict['users'][0]['location']['x'] #Float
-y = tGeoRSS_dict['users'][0]['location']['y'] #Float
-
-#Tambien puedes hacer una lista con esos valores:
-vector = (startTime, endTime, userID, speed, x, y)
-print(vector)
-#NOTA: tambien puedes hacer una matriz de numpy o dataframe con Pandas...
-
-#Y si quieres directamente imprimirlos sin guardarlos en variables, puedes hacerlo así
-
-print('StartTime: %s' % tGeoRSS_dict['startTime'])
-print('EndTime: %s' % tGeoRSS_dict['endTime'])
-print('User: %d' % User)
-print('ID: %s' % tGeoRSS_dict['users'][0]['id'])
-print('Speed: %f' % tGeoRSS_dict['users'][0]['speed'])
-print('Location: x = %f' % tGeoRSS_dict['users'][0]['location']['x'])
-print('Location: y = %f' % tGeoRSS_dict['users'][0]['location']['y'])
-
-
+userID = tGeoRSS_dict['users'][User]['id'] #String 
+speed = tGeoRSS_dict['users'][User]['speed'] #Float
+x = tGeoRSS_dict['users'][User]['location']['x'] #Float
+y = tGeoRSS_dict['users'][User]['location']['y'] #Float
